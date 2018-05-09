@@ -31,8 +31,8 @@ myReverseV1 :: Vect n a -> Vect n a
 myReverseV1 v = myReverseV1Helper (vlength v) v
 
 myReverseV1Helper :: SNat n -> Vect n elem -> Vect n elem
-myReverseV1Helper _ VNil = undefined 
-myReverseV1Helper (SS n) (x ::: xs) = undefined -- hint use `myAppend1` 
+myReverseV1Helper _ VNil = VNil
+myReverseV1Helper (SS n) (x ::: xs) = case plusCommutative n s1 of Refl -> myReverseV1Helper n xs `myAppend1` (x ::: VNil)  
 
 -- test:
 -- listWithVect [1..9] (vectToList . myReverseV1)
@@ -53,11 +53,9 @@ myReverseV2 :: Vect n a -> Vect n a
 myReverseV2 xs = myReverseV2Helper SZ (vlength xs) VNil xs
 
 myReverseV2Helper :: SNat nacc -> SNat mxs -> Vect nacc a -> Vect mxs a -> Vect (nacc + mxs) a
-myReverseV2Helper nacc _ acc VNil = undefined -- acc
+myReverseV2Helper nacc _ acc VNil = case plusZeroRightNeutral nacc of Refl -> acc
 myReverseV2Helper nacc (SS mxs) acc (x ::: xs)
-                      = undefined -- myReverseV2Helper (SS nacc) mxs (x ::: acc) xs
-
-
+                      = case plusSuccRightSucc nacc mxs of Refl -> myReverseV2Helper (SS nacc) mxs (x ::: acc) xs
 
 
 {-

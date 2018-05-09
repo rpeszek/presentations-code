@@ -41,13 +41,13 @@ data SnocVect (v :: Vect n a) where
 --   What is SVect v ? (example)
 
 vappendVNilRightNeutral :: forall (v :: Vect n a) . SVect v -> (VAppend v 'VNil) :~~: v
-vappendVNilRightNeutral SVNil = undefined
-vappendVNilRightNeutral (SVCons x xs) = undefined
+vappendVNilRightNeutral SVNil = HRefl
+vappendVNilRightNeutral (SVCons x xs) = case vappendVNilRightNeutral xs of HRefl -> HRefl
 
 vappendAssociative ::  forall (l :: Vect n a) (c :: Vect m a) (r :: Vect k a) .
       SVect l -> SVect c -> SVect r -> VAppend l (VAppend c r) :~~: VAppend (VAppend l c) r
-vappendAssociative SVNil c r = undefined
-vappendAssociative (SVCons x xs) c r = undefined
+vappendAssociative SVNil c r = HRefl
+vappendAssociative (SVCons x xs) c r = case vappendAssociative xs c r of HRefl -> HRefl
 
 -- Problem: this is not a linear cost :( 
 --   even if proofs do not cost anything, maintaing input (snocVectHelp) has computational cost

@@ -23,18 +23,18 @@ import Data.Nat
 -- Need to bring SNat evidence to be able to case split and apply inductive reasoning
 -- What is (+) ???
 plusCommutative :: SNat left -> SNat right -> ((left + right) :~: (right + left))
-plusCommutative = undefined
-
-
-
-
+plusCommutative SZ right = plusZeroRightNeutral right
+plusCommutative (SS k) right = case plusCommutative k right of 
+   Refl -> sym $ plusSuccRightSucc right k
+ 
 plusZeroRightNeutral :: SNat mx -> 'Z + mx :~: mx + 'Z
-plusZeroRightNeutral SZ     = undefined
-plusZeroRightNeutral (SS k) = undefined
+plusZeroRightNeutral SZ     = Refl
+plusZeroRightNeutral (SS k) = cong $ plusZeroRightNeutral k -- cong is not needed
 
 plusSuccRightSucc :: SNat left -> SNat right -> (left + 'S right) :~: 'S (left + right)
-plusSuccRightSucc SZ right        = undefined
-plusSuccRightSucc (SS left) right = undefined 
+plusSuccRightSucc SZ right        = Refl
+plusSuccRightSucc (SS left) right = case plusSuccRightSucc left right of Refl -> Refl 
+-- | cong is not needed
 
 
 -- type level function

@@ -40,8 +40,8 @@ testAppend xs ys fapp = listWithVect xs (\vxs -> listWithVect ys (\vys -> SomeVe
 
 
 -- Attempt 1
-myAppend2 :: Vect n a -> Vect m a -> Vect (m + n) a
-myAppend2 = undefined -- myAppend1 
+-- myAppend2 :: Vect n a -> Vect m a -> Vect (m + n) a
+-- myAppend2 = undefined -- myAppend1 
 
 
 -- Attempt 2:
@@ -50,9 +50,9 @@ type One = S Z
 myAppend2f :: Vect Two a -> Vect One a -> Vect (One + Two) a
 myAppend2f = myAppend1 
 
--- myAppend2 :: (n + m) ~ (m + n) => 
---              Vect n a -> Vect m a -> Vect (m + n) a
--- myAppend2 = myAppend1 
+myAppend2 :: (n + m) ~ (m + n) => 
+             Vect n a -> Vect m a -> Vect (m + n) a
+myAppend2 = myAppend1 
 
 {-
 ghci:
@@ -76,7 +76,10 @@ myAppend3' :: (SingI n, SingI m) => Vect n a -> Vect m a -> Vect (m + n) a
 myAppend3' = myAppend3Helper sing sing
 
 myAppend3Helper :: SNat n -> SNat m -> Vect n a -> Vect m a -> Vect (m + n) a
-myAppend3Helper n m v1 v2 = undefined
+myAppend3Helper n m v1 v2 = T.because (T.plusCommutative n m) $ myAppend1 v1 v2
+
+-- myAppend3Helper :: SNat n -> SNat m -> Vect n a -> Vect m a -> Vect (m + n) a
+-- myAppend3Helper n m v1 v2 = gcastWith (T.plusCommutative n m) $ myAppend2 v1 v2
 
 
 {-
