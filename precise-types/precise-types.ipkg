@@ -1,0 +1,10 @@
+package precise-types
+
+modules = Main
+        , Present.P1_Appetizer
+        , Present.P2_VectVsList
+        , Present.P8_Dessert
+
+sourcedir = src
+main = Main
+executable = preciseTypes
