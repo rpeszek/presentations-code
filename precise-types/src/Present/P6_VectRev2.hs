@@ -35,7 +35,7 @@ data SnocVect n a where
 snocVect :: Vect n a -> SnocVect n a
 snocVect xs = snocVectHelp SZ (vlength xs) EmptyV xs
 
--- the same as myReverse2Helper!
+-- the same as myReverse2Helper! - what is the computation cost?
 snocVectHelp ::  SNat n -> SNat m -> SnocVect n a -> Vect m a -> SnocVect (n + m) a
 snocVectHelp n m snoc VNil = case plusZeroRightNeutral n of Refl -> snoc
 snocVectHelp n (SS m) snoc (x ::: xs) 
@@ -46,7 +46,7 @@ myReverseHelper :: SnocVect n a -> Vect n a
 myReverseHelper EmptyV = VNil
 myReverseHelper (SnocV xs x) = x ::: myReverseHelper xs 
 
-{- snocVect is used only once, this has linear cost!-}
+{- snocVect is used only once -}
 myReverse :: Vect n a -> Vect n a
 myReverse xs = myReverseHelper $ snocVect xs 
 
@@ -57,5 +57,7 @@ listWithVect [1..9] (vectToList . myReverse)
 
 -- Talking points
 --   - What is Snoc 
+-- Talking points 
+--   - quadratic cost (or maybe I am missing something)
 --   - View pattern in Haskell without nice with syntax and 
 --         type expression pattern match - worth it?

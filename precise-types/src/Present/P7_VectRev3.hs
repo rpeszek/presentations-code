@@ -58,8 +58,7 @@ vappendAssociative (SVCons x xs) c r = undefined
 
 
 -- Problem: this is not a linear cost :( 
---   Implementation uses theorems (needs to maintain recursive `input` used by theorems)
---   Idris version has linear cost!
+--   Idris version has linear cost
 snocVect :: forall (xs :: Vect n a). SVect xs -> SnocVect xs
 snocVect xs = snocVectHelp SVNil EmptyV xs
 
