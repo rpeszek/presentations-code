@@ -36,6 +36,7 @@ snocVect :: Vect n a -> SnocVect n a
 snocVect xs = snocVectHelp SZ (vlength xs) EmptyV xs
 
 -- the same as myReverse2Helper! - what is the computation cost?
+-- NOTE computational cost can be removed with `believe_me/unsafeCoerce`
 snocVectHelp ::  SNat n -> SNat m -> SnocVect n a -> Vect m a -> SnocVect (n + m) a
 snocVectHelp n m snoc VNil = case plusZeroRightNeutral n of Refl -> snoc
 snocVectHelp n (SS m) snoc (x ::: xs) 

@@ -2,22 +2,21 @@
 module Persent.P2_VectVsList
 import Data.Vect
 
-
 {-
   Precise types reduce program solution space
   find simplest implementations:
 -}
 
+namespace List 
+  map : (a -> b) -> List a -> List b
 
-myMapL : (a -> b) -> List a -> List b
-
-myAppendL : List a -> List a -> List a
+  append : List a -> List a -> List a
 
 
+namespace Vect
+  map : (a -> b) -> Vect n a -> Vect n b
 
-myMapV : (a -> b) -> Vect n a -> Vect n b
-
-myAppendV : Vect n a -> Vect m a -> Vect (n + m) a
+  append : Vect n a -> Vect m a -> Vect (n + m) a
 
 
 

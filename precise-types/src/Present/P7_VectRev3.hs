@@ -30,14 +30,11 @@ data SnocVect (v :: Vect n a) where
    SnocV :: forall (xs :: Vect n a) (x :: a). 
                  SnocVect xs -> Sing x -> SnocVect (VAppend xs (VOneElem x))
 
-
 --- (2) I will need some theorems ----
 -- th1 :: (VAppend v 'VNil) :~: v
 -- th2 :: VAppend l (VAppend c r) :~~: VAppend (VAppend l c) r
 -- 
 -- Can I do it?
-
-
 
 --- (3) will use :~~: instead ---
 --   What is :~~: ?
@@ -52,13 +49,9 @@ vappendAssociative ::  forall (l :: Vect n a) (c :: Vect m a) (r :: Vect k a) .
 vappendAssociative SVNil c r = undefined
 vappendAssociative (SVCons x xs) c r = undefined
 
-
-
-
-
-
 -- Problem: this is not a linear cost :( 
---   Idris version has linear cost
+--   even if proofs do not cost anything, maintaing input (snocVectHelp) has computational cost
+--   Idris version has linear cost, Idris can infer SVect input in snocVectHelp
 snocVect :: forall (xs :: Vect n a). SVect xs -> SnocVect xs
 snocVect xs = snocVectHelp SVNil EmptyV xs
 

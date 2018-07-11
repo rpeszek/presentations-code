@@ -45,6 +45,11 @@ myAppend2 = undefined -- myAppend1
 
 
 -- Attempt 2:
+type Two = S (S Z)
+type One = S Z
+myAppend2f :: Vect Two a -> Vect One a -> Vect (One + Two) a
+myAppend2f = myAppend1 
+
 -- myAppend2 :: (n + m) ~ (m + n) => 
 --              Vect n a -> Vect m a -> Vect (m + n) a
 -- myAppend2 = myAppend1 
