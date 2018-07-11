@@ -62,6 +62,8 @@ testAppend [1..5] [6..8] myAppend2
 
 -- Talking points
 --     2+1 = 1+2 vs  n+m = m+n in Haskell 
+--       important trick for early adopters when type level evaluation
+--       is slow or does not terminate
 --     proof responsibilty left to the caller
 --     Type contraint `(n + m) ~ (m + n)` is hard to work with
 
